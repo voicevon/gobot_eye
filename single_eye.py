@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 import threading
-import click
+# import click
 import time  # only for sleep
 
 
@@ -51,7 +51,7 @@ class SingleEye():
         self.__mark_scanner = MarkScanner()
         self.__board_scanner = BoardScanner()
         self.__layout_scanner = LayoutScanner()
-        self.__capture_device = cv2.VideoCapture(app_config.robot_eye.camera_index)
+        self.__capture_device = cv2.VideoCapture(app.robot_eye.camera_index)
 
         self.windows={'original':'original','candy':'candy','chessboard':'chessboard'}
         self.__cvWindow = CvWindows()
@@ -65,7 +65,7 @@ class SingleEye():
     def __capture_newest_image(self):
         ret, img = self.__capture_device.read()
  
-        if app_config.robot_eye.show_origin:
+        if app.robot_eye.show_origin:
             CvDebugger.show_debug_image ('orign',img, ' ')
             # cp = img.copy()
             # debug_text = '  ' + datetime.now().strftime('%s')
@@ -166,7 +166,7 @@ if __name__ == '__main__':
             layout.print_out()
 
         elif key == '4':
-            layout = myrobotEye.get_stable_layout(app_config.robot_eye.layout_scanner.stable_depth)
+            layout = myrobotEye.get_stable_layout(app.robot_eye.layout_scanner.stable_depth)
             layout.print_out()
 
         elif key == '5':

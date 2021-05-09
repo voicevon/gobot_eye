@@ -84,16 +84,21 @@ class CvDebugger():
     
     @staticmethod
     def show_debug_image( window_name, soure_img, debug_text):
-        if app_config.robot_eye.board_scanner.show_board_image:
-            cp = soure_img.copy()
-            debug_text += '  ' + datetime.now().strftime('%s')
-            cv2.putText(cp, debug_text, (10,100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 1)
-            cv2.imshow(window_name, cp)
-            cv2.waitKey(1)
+        '''
+        This does not work on OS of Pi zero Lite
+        '''
+        pass
+     
+        #if app.robot_eye.board_scanner.show_board_image:
+        #    cp = soure_img.copy()
+        #    debug_text += '  ' + datetime.now().strftime('%s')
+        #    cv2.putText(cp, debug_text, (10,100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 1)
+        #    cv2.imshow(window_name, cp)
+        #    cv2.waitKey(1)
 
 
 if __name__ == "__main__":
     # global_config = app_config
     # s1 = global_config.robot_arm.name
-    app_config.robot_eye.layout_scanner.inspecting.cell_name = 'A1'
-    print(app_config.robot_eye.layout_scanner.inspecting.cell_name)
+    app.robot_eye.layout_scanner.inspecting.cell_name = 'A1'
+    print(app.robot_eye.layout_scanner.inspecting.cell_name)
