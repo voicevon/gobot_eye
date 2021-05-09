@@ -3,7 +3,8 @@
 - With Pi camera
 
 # Dependency
-- OpenCV Ver ?
+- Python 3.x
+- OpenCV Version ?
 - Paho-mqtt Ver 1.5.1
 
 # Inspired from
