@@ -1,15 +1,9 @@
 
 from datetime import datetime
-import cv2
 
 
-class app_config:
-    #platform = 'UBUNTU_GUI'
-    host_os = 'PI_ZERO'
-
-    #firmware = 'REPRAP'
-    firmware = 'KLIPPER'
-    
+class app:
+   mqtt_client = null
     class mainloop:
         class at_demo_mover:
             do_vision_check = True
@@ -36,7 +30,7 @@ class app_config:
                 withdraw_black =6
                 game_over = 7
 
-    class server:
+    class net_server:
         class AI:
             ip = '192.168.123.123'
             port = 50007
@@ -48,10 +42,7 @@ class app_config:
             password = 'von1970'
             client = None
 
-    class robot_arm:
-        type = 'GO_SCARA'
-        #type = 'FAZE4'
-        enable_moveit = False
+
 
     class robot_eye:
         camera_index = 0

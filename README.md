@@ -2,16 +2,24 @@
 - Raspberry Pi zero w
 - With Pi camera
 
-# Dependency
-- Python 3.x
-- OpenCV Version ?
+# OS setup and Dependency installation 
+- Enable Pi camera ?
+- Python 3.x (preinstalled with Pi OS)
+- OpenCV Version 
+```
+sudo apt install python3-opencv -y
+```
 - Paho-mqtt Ver 1.5.1
+```
+pip3 install paho-mqtt
+```
 
-# Inspired from
-- gogame_bot
-- imgGo
+# Involved repos
+- [pylib](https://github.com/voicevon/pylib)
+- [gogame_bot](https://github.com/voicevon/gogame_bot)
+- [imaGo](https://github.com/tomasmcz/imago)
 
-# Functions
-- Recognize go game chessboard and stone position
-- Send layout to MQTT broker
-- Simple GPIO to turn on/off some LED lights
+# Tasks and Functions
+- [] Recognize go game chessboard and stone position.
+- [] Send layout to MQTT broker.
+- [] Simple GPIO to turn on/off some LED lights
