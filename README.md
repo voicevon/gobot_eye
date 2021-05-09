@@ -18,6 +18,9 @@ pip3 install paho-mqtt
 - [pylib](https://github.com/voicevon/pylib)
 - [gogame_bot](https://github.com/voicevon/gogame_bot)
 - [imaGo](https://github.com/tomasmcz/imago)
+- [gbr](https://github.com/skolchin/gbr)
+- [kifu](https://www.remi-coulom.fr/kifu-snap/)
+- 
 
 # Tasks and Functions
 - [] Recognize go game chessboard and stone position.
