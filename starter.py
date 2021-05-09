@@ -26,7 +26,7 @@ class Starter():
         for topic in app.server.mqtt.subscript_topics.topic_dict.keys():
             g_mqtt.subscribe(topic)
             topic_count += 1
-            print('subscribed MQTT topics from config :  %i, %s' %(topic_count,topic))
+            print('Setting app from MQTT:  sid= %i, topic= %s' %(topic_count,topic))
 
 
         print('MQTT subscription is done')
