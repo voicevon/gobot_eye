@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 class app:
-   mqtt_client = null
+
     class mainloop:
         class at_demo_mover:
             do_vision_check = True

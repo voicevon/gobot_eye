@@ -1,7 +1,8 @@
-from app_config import app_config
+from app_config import app
 import sys
 from app_global.color_print import CONST
-
+sys.path.append('../pylib')
+import mqtt_helper
 
 class Starter():
 
