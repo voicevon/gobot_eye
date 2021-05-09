@@ -20,7 +20,7 @@ pip3 install paho-mqtt
 - [imaGo](https://github.com/tomasmcz/imago)
 - [gbr](https://github.com/skolchin/gbr)
 - [kifu](https://www.remi-coulom.fr/kifu-snap/)
-- 
+- [SGF](https://www.red-bean.com/sgf/user_guide/index.html)
 
 # Tasks and Functions
 - [] Recognize go game chessboard and stone position.
