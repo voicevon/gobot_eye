@@ -30,7 +30,7 @@ class app:
                 withdraw_black =6
                 game_over = 7
 
-    class net_server:
+    class server:
         class AI:
             ip = '192.168.123.123'
             port = 50007

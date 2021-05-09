@@ -1,33 +1,29 @@
-import app_config 
 import sys
-sys.path.append('..\pylib')
+#sys.path.append('..\pylib')
+sys.path.append('/home/pi/pylib')
+
 from terminal_font import TerminalFont
-from mqtt_helper import g_mqtt
+from app_config import app
 
 class Starter():
 
     def __connect_to_mqtt_broker(self):
-        broker = app_config.server.mqtt.broker_addr
-        port = app_config.server.mqtt.port
-        uid = app_config.server.mqtt.username
-        password = app_config.server.mqtt.password
+        broker = app.server.mqtt.broker_addr
+        port = app.server.mqtt.port
+        uid = app.server.mqtt.username
+        password = app.server.mqtt.password
         g_mqtt.connect_broker(broker, port, uid, password)
 
     def __init__(self):
         self.__connect_to_mqtt_broker()
-        # self.__eye = RobotEye()
-        self.__robot_sower = RobotSower()
-
-        self.__goto = self.__on_state_begin
-        self.__system_turn_on = True
-
+        
         self.__YELLOW = TerminalFont.Color.Fore.yellow
         self.__GREEN = TerminalFont.Color.Fore.yellow
         self.__RESET = TerminalFont.Color.Control.reset
 
         # subscribe all topics from config files
         topic_count = 0
-        for topic in AppConfig.server.mqtt.subscript_topics.topic_dict.keys():
+        for topic in app.server.mqtt.subscript_topics.topic_dict.keys():
             g_mqtt.subscribe(topic)
             topic_count += 1
             print('subscribed MQTT topics from config :  %i, %s' %(topic_count,topic))
@@ -39,7 +35,6 @@ class Starter():
         print('System is initialized. Now is working')
         print(self.__RESET)
 
-        self.__robot_sower.start()
     pass
 
 def show_welcome():
@@ -61,13 +56,14 @@ def show_welcome():
     welcome.append('                                                           ')
 
     for w in welcome:
-        print('                      ' + CONST.print_color.control.bold + CONST.print_color.fore.yellow + CONST.print_color.background.blue + w + CONST.print_color.control.reset)
-    print(CONST.print_color.control.reset)
+        print('                      ' + TerminalFont.Color.Control.bold + TerminalFont.Color.Fore.yellow + TerminalFont.Color.Background.blue + w + TerminalFont.Color.Control.reset)
+    print(TerminalFont.Color.Control.reset)
 
 
 
 if __name__ == "__main__":
     show_welcome()
+    from mqtt_helper import g_mqtt
     my_starter = Starter()
 
 
