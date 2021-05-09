@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys
 sys.path.append('../')
-from robot_eye.cell_scanner import CellScanner
+from cell_scanner import CellScanner
 import cv2
 import numpy
 
