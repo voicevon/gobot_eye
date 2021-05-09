@@ -41,11 +41,11 @@ class app:
             username = 'von'
             password = 'von1970'
             client = None
-        class subscript_topics:
-            topic_dict = {
-                'gobot_eye/12345678/aa': 12,
-                "gobot_eye/12345678/bb": 11
-                }
+            class subscript_topics:
+                topic_dict = {
+                    'gobot_eye/12345678/aa': 12,
+                    "gobot_eye/12345678/bb": 11
+                    }
 
 
     class robot_eye:
