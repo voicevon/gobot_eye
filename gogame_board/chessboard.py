@@ -4,9 +4,11 @@
 import sys
 # sys.path.append('/home/xm/gitrepo/gogame_bot/python')
 # sys.path.append('../gogame_board/')
+sys.path.append('/home/pi/pylib')
 sys.path.append('../')
-from app_global.color_print import CONST
-from app_global.gogame_config import app_config
+
+from terminal_font import TerminalFont
+from app_config import app
 
 
 from gogame_board.chessboard_cell import ChessboardCell
@@ -20,12 +22,12 @@ class ChessboardLayout():
     def __init__(self,name):
         self.name = name
 
-        self._ROWS = app_config.game_rule.board_size.row
-        self._COLS = app_config.game_rule.board_size.col
+        self._ROWS = app.game_rule.board_size.row
+        self._COLS = app.game_rule.board_size.col
         
+        self.__BLANK = app.game_rule.cell_color.blank
         self.__BLANK = app_config.game_rule.cell_color.blank
-        self.__BLANK = app_config.game_rule.cell_color.blank
-        self._BLACK = app_config.game_rule.cell_color.black
+        self._BLACK = app.game_rule.cell_color.black
         self._WHITE = app_config.game_rule.cell_color.white
 
 
