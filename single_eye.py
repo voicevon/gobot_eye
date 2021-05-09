@@ -92,51 +92,6 @@ class SingleEye():
         layout.rename_to('stable detect layout (depth = %d)' % stable_depth)
         return layout
 
-    # def Toushi(self, img, x, y, w, h, contour):
-    #     # cv2.imshow("imgss", img)
-    #     height, width = img.shape[:2]
-    #     dp1 = dp2 = dp3 = dp4 = 10000
-    #     for i in range(len(contour)):
-    #         ddp1 = abs(contour[i][0][0]-x) + abs(contour[i][0][1]-y)
-    #         if ddp1<dp1:
-    #             dp1 = ddp1
-    #             pp1 = contour[i][0]
-    #         ddp2 = abs(contour[i][0][0]-(x+w)) + abs(contour[i][0][1]-y)
-    #         if ddp2<dp2:
-    #             dp2 = ddp2
-    #             pp2 = contour[i][0]
-    #         ddp3 = abs(contour[i][0][0]-(x+w)) + abs(contour[i][0][1]-(y+h))
-    #         if ddp3<dp3:
-    #             dp3 = ddp3
-    #             pp3 = contour[i][0]
-    #         ddp4 = abs(contour[i][0][0]-x) + abs(contour[i][0][1]-(y+h))
-    #         if ddp4<dp4:
-    #             dp4 = ddp4
-    #             pp4 = contour[i][0]
-    #     pts1 = np.float32([pp1, pp2, pp3, pp4])
-    #     pts2 = np.float32([[x, y],[x+430,y],[x+430,y+430],[x, y+430]])
-    #     # print("pts1:{0}".format(pts1))
-    #     # print("pts2:{0}".format(pts2))
-    #     M = cv2.getPerspectiveTransform(pts1,pts2)
-    #     dst = cv2.warpPerspective(img, M, (width, height))
-    #     # cv2.imshow("dst", dst)
-    #     return dst
-
-    # def compo(self,img):
-
-    #     dst = self.Toushi(img,x,y,w,h,qipan)
-    #     xNew = x + 0
-    #     yNew = y + 0
-    #     xEnd = x + self.__CROP_WIDTH
-    #     yEnd = y + self.__CROP_HEIGHT
-    #     # cv2.rectangle(Img,(xNew,yNew),(xEnd,yEnd),(0,255,),1)
-
-
-    #     singleQiPan = dst[yNew:yEnd, xNew:xEnd]
-    #     CvDebugger.show_debug_image('board_scaner', singleQiPan, 'Got it')
-    #     return singleQiPan
-
-    
 
     def get_chessboard_test(self):
         ret, img = self.__capture_newest_image()

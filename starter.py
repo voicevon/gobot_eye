@@ -35,7 +35,6 @@ class Starter():
         print('System is initialized. Now is working')
         print(self.__RESET)
 
-    pass
 
 def show_welcome():
     welcome=[]
@@ -63,8 +62,11 @@ def show_welcome():
 
 if __name__ == "__main__":
     show_welcome()
-    from mqtt_helper import g_mqtt
+    # from mqtt_helper import g_mqtt   # For faster debug without mqtt connection
+    from single_eye import SingleEye
     my_starter = Starter()
+    my_eye = SingleEye()
+    my_eye.start()
 
 
 
