@@ -7,8 +7,8 @@ import time  # only for sleep
 
 
 from gogame_board.chessboard import ChessboardLayout, DiedAreaScanner
-from app_global.gogame_config import app_config, CvDebugger
-from app_global.color_print import CONST
+from app_config import app, CvDebugger
+from terminal_font import TerminalFont
 
 
 from mark_scanner import MarkScanner
@@ -57,17 +57,14 @@ class SingleEye():
         self.__cvWindow = CvWindows()
         self.__thread_eyes = {}
 
-        self.__FC_YELLOW = CONST.print_color.fore.yellow
-        self.__FC_RESET = CONST.print_color.control.reset
-        self.__MARK_STABLE_DEPTH = app_config.robot_eye.mark_scanner.stable_depth
-        self.__LAYOUT_STABLE_DEPTH = app_config.robot_eye.layout_scanner.stable_depth
+        self.__FC_YELLOW = TerminalFont.Color.Fore.yellow
+        self.__FC_RESET = TerminalFont.Color.Control.reset
+        self.__MARK_STABLE_DEPTH = app.robot_eye.mark_scanner.stable_depth
+        self.__LAYOUT_STABLE_DEPTH = app.robot_eye.layout_scanner.stable_depth
 
     def __capture_newest_image(self):
         ret, img = self.__capture_device.read()
-        ret, img = self.__capture_device.read()
-        ret, img = self.__capture_device.read()
-        ret, img = self.__capture_device.read()
-        ret, img = self.__capture_device.read()
+ 
         if app_config.robot_eye.show_origin:
             CvDebugger.show_debug_image ('orign',img, ' ')
             # cp = img.copy()
@@ -101,10 +98,6 @@ class SingleEye():
     def get_stable_mark(self,min_stable_depth):
         stable_depth = 0
         while stable_depth < min_stable_depth:
-            ret, img = self.__capture_device.read()
-            ret, img = self.__capture_device.read()
-            ret, img = self.__capture_device.read()
-            ret, img = self.__capture_device.read()
             ret, img = self.__capture_device.read()
             if ret:
                 mark_index, stable_depth = self.__mark_scanner.detect_mark(img, min_stable_depth)

@@ -5,21 +5,22 @@ import numpy
 import sys
 import time
 
-sys.path.append('/home/xm/gitrepo/gogame_bot/python')
-from app_global.color_print import CONST
-from app_global.gogame_config import app_config
+sys.path.append('../')
+sys.path.append('/home/pi/pylib')
+from terminal_font import TerminalFont
+from app_config import app
 
 class CellScanner():
     def __init__(self, board_mean):
         self.__board_mean = board_mean
-        self.__ROWS = app_config.game_rule.board_size.row
-        self.__COLS = app_config.game_rule.board_size.col
-        self.__BLANK = app_config.game_rule.cell_color.blank
-        self.__BLACK = app_config.game_rule.cell_color.black
-        self.__WHITE = app_config.game_rule.cell_color.white
+        self.__ROWS = app.game_rule.board_size.row
+        self.__COLS = app.game_rule.board_size.col
+        self.__BLANK = app.game_rule.cell_color.blank
+        self.__BLACK = app.game_rule.cell_color.black
+        self.__WHITE = app.game_rule.cell_color.white
 
-        self.__FC_YELLOW = CONST.print_color.fore.yellow
-        self.__FC_RESET = CONST.print_color.control.reset
+        self.__FC_YELLOW = TerminalFont.Color.Fore.yellow
+        self.__FC_RESET = TerminalFont.Color.Control.reset
         
         # self.__INSPECT_COUNTER = go_game_inspecting_cell.counter
 

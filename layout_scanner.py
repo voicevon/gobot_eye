@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 import sys
 sys.path.append('../')
+sys.path.append('/home/pi/pylib')
 from cell_scanner import CellScanner
 import cv2
 import numpy
 
-import sys
-sys.path.append('/home/xm/gitrepo/gogame_bot/python')
+
 from gogame_board.chessboard import ChessboardLayout, ChessboardCell
-from app_global.color_print import CONST
-from app_global.gogame_config import app_config
+from terminal_font import TerminalFont
+from app_config import app
 
 class LayoutScanner():
 
@@ -22,22 +22,22 @@ class LayoutScanner():
         self.__history_length = 0 
         # self.__diffs = []
 
-        self.__BLANK = app_config.game_rule.cell_color.blank
-        self.__BLACK = app_config.game_rule.cell_color.black
-        self.__WHITE = app_config.game_rule.cell_color.white
-        self.__ROWS = app_config.game_rule.board_size.row 
-        self.__COLS = app_config.game_rule.board_size.col
+        self.__BLANK = app.game_rule.cell_color.blank
+        self.__BLACK = app.game_rule.cell_color.black
+        self.__WHITE = app.game_rule.cell_color.white
+        self.__ROWS = app.game_rule.board_size.row 
+        self.__COLS = app.game_rule.board_size.col
 
-        self.__SPACE_X = app_config.robot_eye.cell_scanner.dimension.cell_space_x
-        self.__SPACE_Y = app_config.robot_eye.cell_scanner.dimension.cell_space_y
+        self.__SPACE_X = app.robot_eye.cell_scanner.dimension.cell_space_x
+        self.__SPACE_Y = app.robot_eye.cell_scanner.dimension.cell_space_y
         self.__VIEW_RANGE = 1.6
 
         self.__inspect_cell =  ChessboardCell()
-        self.__inspect_cell.from_name(app_config.robot_eye.layout_scanner.inspecting.cell_name)
+        self.__inspect_cell.from_name(app.robot_eye.layout_scanner.inspecting.cell_name)
 
-        self.__FC_GREEN = CONST.print_color.fore.green
-        self.__FC_YELLOW = CONST.print_color.fore.yellow
-        self.__FC_RESET = CONST.print_color.control.reset
+        self.__FC_GREEN = TerminalFont.Color.Fore.green
+        self.__FC_YELLOW = TerminalFont.Color.Fore.yellow
+        self.__FC_RESET = TerminalFont.Color.Control.reset
 
 
         self.Min_BlackColor = numpy.array([0, 0, 0])  # 要识别黑子颜色的下限

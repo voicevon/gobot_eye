@@ -9,8 +9,9 @@ import cv2
 import sys
 # sys.path.append('/home/xm/gitrepo/gogame_bot/python')
 sys.path.append('../')
-from app_global.color_print import CONST
-from app_global.gogame_config import app_config, CvDebugger
+sys.path.append('/home/pi/pylib')
+from terminal_font import TerminalFont
+from app_config import app, CvDebugger
 
 
 class BoardScanner():
@@ -22,14 +23,14 @@ class BoardScanner():
         # self.__BLACK = app_config.game_rule.cell_color.black
         # self.__WHITE = app_config.game_rule.cell_color.white
 
-        self.__CROP_WIDTH = app_config.robot_eye.board_scanner.cropping.crop_width_on_x
-        self.__CROP_HEIGHT = app_config.robot_eye.board_scanner.cropping.crop_height_on_y
+        self.__CROP_WIDTH = app.robot_eye.board_scanner.cropping.crop_width_on_x
+        self.__CROP_HEIGHT = app.robot_eye.board_scanner.cropping.crop_height_on_y
 
 
 
-        self.__FC_GREEN = CONST.print_color.fore.green
-        self.__FC_YELLOW = CONST.print_color.fore.yellow
-        self.__FC_RESET = CONST.print_color.control.reset
+        self.__FC_GREEN = TerminalFont.Color.Fore.green
+        self.__FC_YELLOW = TerminalFont.Color.Fore.yellow
+        self.__FC_RESET = TerminalFont.Color.Control.reset
 
 
         '''

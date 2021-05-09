@@ -26,15 +26,15 @@ class ChessboardLayout():
         self._COLS = app.game_rule.board_size.col
         
         self.__BLANK = app.game_rule.cell_color.blank
-        self.__BLANK = app_config.game_rule.cell_color.blank
+        self.__BLANK = app.game_rule.cell_color.blank
         self._BLACK = app.game_rule.cell_color.black
-        self._WHITE = app_config.game_rule.cell_color.white
+        self._WHITE = app.game_rule.cell_color.white
 
 
 
-        self._FC_YELLOW = CONST.print_color.fore.yellow
-        self._BG_RED = CONST.print_color.background.red
-        self._FC_RESET = CONST.print_color.control.reset
+        self._FC_YELLOW = TerminalFont.Color.Fore.yellow
+        self._BG_RED = TerminalFont.Color.Background.red
+        self._FC_RESET = TerminalFont.Color.Control.reset
 
         self._layout_array = [([0] * self._COLS) for i in range(self._ROWS)]
 
@@ -426,17 +426,17 @@ class ChessboardPosition():
     
 if __name__ == "__main__":
     test1 = ChessboardLayout('Test1')
-    test1.play('T19',app_config.game_rule.cell_color.black)
+    test1.play('T19',app.game_rule.cell_color.black)
     test1.print_out()
-    cell = test1.get_first_cell(app_config.game_rule.cell_color.black) 
+    cell = test1.get_first_cell(app.game_rule.cell_color.black) 
     cell = ChessboardCell()
     # cell.from_col_row_id(x,y)
     print('x=%d, y=%d, name=%s' %(cell.col_id, cell.row_id, cell.name))
 
 
     test2 = ChessboardLayout('Test2')
-    test2.play('T19',app_config.game_rule.cell_color.black)
-    test2.play('K10',app_config.game_rule.cell_color.white)
+    test2.play('T19',app.game_rule.cell_color.black)
+    test2.play('K10',app.game_rule.cell_color.white)
     x = test2.compare_with(test1,do_print_out=True)
     print (x)  
     
