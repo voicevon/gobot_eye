@@ -3,10 +3,38 @@ from datetime import datetime
 
 
 class app:
+    i_am = 'warehouse_eye'
+    #i_am = 'chessboard_eye'
 
-    class mainloop:
-        class at_demo_mover:
-            do_vision_check = True
+    class Chessboard_eye:
+        camera_index = 0
+        show_origin = True
+
+        class board_scanner:
+            show_board_image = True
+
+            class cropping:
+                crop_width_on_x = 428
+                crop_height_on_y = 428
+        class cell_scanner:
+            class dimension:
+                cell_space_x = 22
+                cell_space_y = 22
+                cell_detector_range = 1.6
+
+        class layout_scanner:
+            stable_depth = 6
+            show_scan_image = True 
+            
+            class inspecting:
+                cell_name = 'T14'
+                counter = 100
+        class mark_scanner:
+            stable_depth = 5
+
+    class Warehouse_eye:
+        aruco_ids_vertical = (1,2,3,4)
+        aruco_ids_horizontal = (5,6,7,8)
 
     class game_rule:
         class board_size:
@@ -48,32 +76,7 @@ class app:
                     }
 
 
-    class robot_eye:
-        camera_index = 0
-        show_origin = True
-
-        class board_scanner:
-            show_board_image = True
-
-            class cropping:
-                crop_width_on_x = 428
-                crop_height_on_y = 428
-        class cell_scanner:
-            class dimension:
-                cell_space_x = 22
-                cell_space_y = 22
-                cell_detector_range = 1.6
-
-        class layout_scanner:
-            stable_depth = 6
-            show_scan_image = True 
-            
-            class inspecting:
-                cell_name = 'T14'
-                counter = 100
-        class mark_scanner:
-            stable_depth = 5
-
+    
     class current_game:
         lastest_move_cell_name = None
 

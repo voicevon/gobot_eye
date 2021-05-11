@@ -7,7 +7,7 @@ import time  # only for sleep
 
 
 from gogame_board.chessboard import ChessboardLayout, DiedAreaScanner
-from app_config import app, CvDebugger
+from config import config, CvDebugger
 from terminal_font import TerminalFont
 
 
@@ -59,8 +59,8 @@ class SingleEye():
 
         self.__FC_YELLOW = TerminalFont.Color.Fore.yellow
         self.__FC_RESET = TerminalFont.Color.Control.reset
-        self.__MARK_STABLE_DEPTH = app.robot_eye.mark_scanner.stable_depth
-        self.__LAYOUT_STABLE_DEPTH = app.robot_eye.layout_scanner.stable_depth
+        self.__MARK_STABLE_DEPTH = config.robot_eye.mark_scanner.stable_depth
+        self.__LAYOUT_STABLE_DEPTH = config.robot_eye.layout_scanner.stable_depth
 
     def __capture_newest_image(self):
         ret, img = self.__capture_device.read()
