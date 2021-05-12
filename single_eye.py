@@ -51,11 +51,11 @@ class SingleEye():
         self.__mark_scanner = MarkScanner()
         self.__board_scanner = BoardScanner()
         self.__layout_scanner = LayoutScanner()
-        self.__capture_device = cv2.VideoCapture(app.robot_eye.camera_index)
+        # self.__capture_device = cv2.VideoCapture(app.robot_eye.camera_index)
 
-        self.windows={'original':'original','candy':'candy','chessboard':'chessboard'}
-        self.__cvWindow = CvWindows()
-        self.__thread_eyes = {}
+        # self.windows={'original':'original','candy':'candy','chessboard':'chessboard'}
+        # self.__cvWindow = CvWindows()
+        # self.__thread_eyes = {}
 
         self.__FC_YELLOW = TerminalFont.Color.Fore.yellow
         self.__FC_RESET = TerminalFont.Color.Control.reset
@@ -136,8 +136,6 @@ class SingleEye():
 
 
 if __name__ == '__main__':
-    # How can show two video window,  from one threads?
-    # myrobotEye.start_show('candy')
     myrobotEye = SingleEye()
     while True:
         menu = []
