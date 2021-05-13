@@ -15,37 +15,8 @@ from mark_scanner import MarkScanner
 from board_scanner import BoardScanner
 from layout_scanner import LayoutScanner
 
-class CvWindows():
-    def __init__(self):
-        self.name = 'origin'
-        self.is_shown = True
-        self.pos_x = 40
-        self.pos_y = 30
-        self.__showing_windows = {'origin':[True,40,30], 
-                          'candy':[True,400,30], 
-                          'chessboard':[False,40,300]
-                          }
 
-    def from_name(self, window_name):
-        self.name = window_name
-        self.is_shown = self.__showing_windows[window_name][0]
-        self.pos_x = self.__showing_windows[window_name][1]
-        self.pos_y = self.__showing_windows[window_name][2]
-        return self
-
-    def get_window(self,window_name):
-        target = CvWindows()
-        target.name = window_name
-        target.is_shown = self.__showing_windows[window_name][0]
-        target.pos_x = self.__showing_windows[window_name][1]
-        target.pos_y = self.__showing_windows[window_name][2]
-        return target
-
-    def get_all_windows(self):
-        return self.__showing_windows
-
-
-class SingleEye():
+class BotHead():
 
     def __init__(self):
         self.__mark_scanner = MarkScanner()
@@ -133,10 +104,23 @@ class SingleEye():
                     cv2.imshow(name, frame)
                     cv2.waitKey(1)
 
+    def spin(self):
+        # take picture
+
+        # scan command
+
+        if user_is_playing:
+            # scan chessboard
+            if user_dropped:
+                # send step to game server
+                self.go_agent.send("move c4 B")
+                
+        
+
 
 
 if __name__ == '__main__':
-    myrobotEye = SingleEye()
+    myrobotEye = BotHead()
     while True:
         menu = []
         menu.append('***********************************************************')

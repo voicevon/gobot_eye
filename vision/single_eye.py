@@ -1,101 +1,28 @@
-
-# from typing_extensions import runtime_checkable
 import cv2
 import numpy as np
 from math import sin, cos
 from picamera.array import PiRGBArray
 from picamera import PiCamera
-import time
 
-import sys
-sys.path.append("~/pylib")
-# sys.path.append("../pylib")
-from terminal_font import TerminalFont
 from mqtt_helper import g_mqtt
-from controller import Controller
 
-class WarehouseRobot():
+
+class SingleEye():
+    '''
+        take picture from Pi camera, 
+        Find aruco corners
+        do perspective transforming.
+    '''
 
     def __init__(self):
-        # initialize the camera and grab a reference to the raw camera capture
         self.__camera = PiCamera()
-        self.__plane_motor = Controller()
-
-        # self.__mark_scanner = MarkScanner()
-        # self.__board_scanner = BoardScanner()
-        # self.__layout_scanner = LayoutScanner()
-        # self.__capture_device = cv2.VideoCapture(app.robot_eye.camera_index)
-
-        # self.windows={'original':'original','candy':'candy','chessboard':'chessboard'}
-        # self.__cvWindow = CvWindows()
-        # self.__thread_eyes = {}
-
-        self.__target_x_position = 100
-        self.__target_y_position = 30
-
-        # self.__FC_YELLOW = TerminalFont.Color.Fore.yellow
-        # self.__FC_RESET = TerminalFont.Color.Control.reset
-        # self.__MARK_STABLE_DEPTH = config.robot_eye.mark_scanner.stable_depth
-        # self.__LAYOUT_STABLE_DEPTH = config.robot_eye.layout_scanner.stable_depth
 
     def take_picture(self):
         rawCapture = PiRGBArray(self.__camera)
-        # time.sleep(1)
         # grab an image from the camera
         self.__camera.capture(rawCapture, format="bgr")
         image = rawCapture.array
         return image
-
-    def draw_axis(self,img, yaw, pitch, roll, tdx=None, tdy=None, size = 100):
-
-        pitch = pitch * np.pi / 180
-        yaw = -(yaw * np.pi / 180)
-        roll = roll * np.pi / 180
-
-        if tdx != None and tdy != None:
-            tdx = tdx
-            tdy = tdy
-        else:
-            height, width = img.shape[:2]
-            tdx = width / 2
-            tdy = height / 2
-
-        # X-Axis pointing to right. drawn in red
-        x1 = size * (cos(yaw) * cos(roll)) + tdx
-        y1 = size * (cos(pitch) * sin(roll) + cos(roll) * sin(pitch) * sin(yaw)) + tdy
-
-        # Y-Axis | drawn in green
-        #        v
-        x2 = size * (-cos(yaw) * sin(roll)) + tdx
-        y2 = size * (cos(pitch) * cos(roll) - sin(pitch) * sin(yaw) * sin(roll)) + tdy
-
-        # Z-Axis (out of the screen) drawn in blue
-        x3 = size * (sin(yaw)) + tdx
-        y3 = size * (-cos(yaw) * sin(pitch)) + tdy
-
-        cv2.line(img, (int(tdx), int(tdy)), (int(x1),int(y1)),(0,0,255),3)
-        cv2.line(img, (int(tdx), int(tdy)), (int(x2),int(y2)),(0,255,0),3)
-        cv2.line(img, (int(tdx), int(tdy)), (int(x3),int(y3)),(255,0,0),2)
-
-        return img 
-
-    def draw_axis_2(self, frame, corners):
-        dist=np.array(([[-0.58650416 , 0.59103816, -0.00443272 , 0.00357844 ,-0.27203275]]))
-        newcameramtx=np.array([[189.076828   ,  0.    ,     361.20126638]
-                            ,[  0 ,2.01627296e+04 ,4.52759577e+02]
-                            ,[0, 0, 1]])
-        mtx=np.array([[398.12724231  , 0.      ,   304.35638757],
-                        [  0.       ,  345.38259888, 282.49861858],
-                        [  0.,           0.,           1.        ]])
-
-        rvec, tvec, _ = cv2.aruco.estimatePoseSingleMarkers(corners, 0.05, mtx, dist)
-        # 估计每个标记的姿态并返回值rvet和tvec ---不同
-        # from camera coeficcients
-        (rvec-tvec).any() # get rid of that nasty numpy value array error
-        i = 0
-        cv2.aruco.drawAxis(frame, mtx, dist, rvec[i, :, :], tvec[i, :, :], 0.03)
-        cv2.aruco.drawDetectedMarkers(frame, corners)
-        return frame
 
     def find_corners(self, image, marker_ids):
         '''
@@ -188,58 +115,53 @@ class WarehouseRobot():
         # save the warped output
         return imgOutput
 
-    def get_stone_pistion(self, img, color):
-        '''
-                 y
-                 ^
-                 |
-                 |
-        ---------+---------> x
-        '''
-        color = 'BLACK'
-        for y in range(50,0,-1):
-            for x in range (-50,50):
-                if True:
-                    # Got black stone
-                    return x, y
-        return None,None
+    def draw_axis(self,img, yaw, pitch, roll, tdx=None, tdy=None, size = 100):
 
-    def spin_once(self):
-        # Take a picture from camera
-        image = self.take_picture()
-        g_mqtt.publish_cv_image('gobot_stonehouse/eye/origin', image)
+        pitch = pitch * np.pi / 180
+        yaw = -(yaw * np.pi / 180)
+        roll = roll * np.pi / 180
 
-        # Get corners position from detecting aruco marks
-        # The sequerence is always [TopLeft, TopRight,bottomRight,BottomLeft]
-        corners = self.find_corners(image,[1,2,4,3])
-        print(corners)
-        if corners != None:
-            if len(corners) == 4:
-                # Get perspectived image
-                perspect_img = self.get_perspective_view(image,corners)
-                g_mqtt.publish_cv_image('gobot_stonehouse/eye/perspect', perspect_img)
-        
-                # Get the stone position, will store the position to where? 
-                x, y = self.get_stone_pistion(perspect_img, 'BLACK') 
-                if x != None:
-                    # How far is the stone to the target position?
-                    dx = self.__target_x_position - x
-                    dy = self.__target_y_position - y 
+        if tdx != None and tdy != None:
+            tdx = tdx
+            tdy = tdy
+        else:
+            height, width = img.shape[:2]
+            tdx = width / 2
+            tdy = height / 2
 
-                    # Control the plane motor to drive the stone move
-                    self.__plane_motor.move_stone(dx, dy)
-        
-        
+        # X-Axis pointing to right. drawn in red
+        x1 = size * (cos(yaw) * cos(roll)) + tdx
+        y1 = size * (cos(pitch) * sin(roll) + cos(roll) * sin(pitch) * sin(yaw)) + tdy
 
-if __name__ == '__main__':
-    # How can show two video window,  from one threads?
-    # myrobotEye.start_show('candy')
-    g_mqtt.connect_to_broker('12345', 'voicevon.vicp.io', 1883, 'von','von1970')
-    
-    # put this line to anywhere.
+        # Y-Axis | drawn in green
+        #        v
+        x2 = size * (-cos(yaw) * sin(roll)) + tdx
+        y2 = size * (cos(pitch) * cos(roll) - sin(pitch) * sin(yaw) * sin(roll)) + tdy
 
-    myrobot = WarehouseRobot()
-    while True:
-        myrobot.spin_once()
-        time.sleep(0.01)
-        print('spin_once done...')
+        # Z-Axis (out of the screen) drawn in blue
+        x3 = size * (sin(yaw)) + tdx
+        y3 = size * (-cos(yaw) * sin(pitch)) + tdy
+
+        cv2.line(img, (int(tdx), int(tdy)), (int(x1),int(y1)),(0,0,255),3)
+        cv2.line(img, (int(tdx), int(tdy)), (int(x2),int(y2)),(0,255,0),3)
+        cv2.line(img, (int(tdx), int(tdy)), (int(x3),int(y3)),(255,0,0),2)
+
+        return img 
+
+    def draw_axis_2(self, frame, corners):
+        dist=np.array(([[-0.58650416 , 0.59103816, -0.00443272 , 0.00357844 ,-0.27203275]]))
+        newcameramtx=np.array([[189.076828   ,  0.    ,     361.20126638]
+                            ,[  0 ,2.01627296e+04 ,4.52759577e+02]
+                            ,[0, 0, 1]])
+        mtx=np.array([[398.12724231  , 0.      ,   304.35638757],
+                        [  0.       ,  345.38259888, 282.49861858],
+                        [  0.,           0.,           1.        ]])
+
+        rvec, tvec, _ = cv2.aruco.estimatePoseSingleMarkers(corners, 0.05, mtx, dist)
+        # 估计每个标记的姿态并返回值rvet和tvec ---不同
+        # from camera coeficcients
+        (rvec-tvec).any() # get rid of that nasty numpy value array error
+        i = 0
+        cv2.aruco.drawAxis(frame, mtx, dist, rvec[i, :, :], tvec[i, :, :], 0.03)
+        cv2.aruco.drawDetectedMarkers(frame, corners)
+        return frame

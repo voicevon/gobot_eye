@@ -3,7 +3,7 @@ import time
 
 
 
-class Controller():
+class Stepper():
 	def __init__(self):
 		GPIO.setmode(GPIO.BCM)
 		GPIO.cleanup()
@@ -53,7 +53,7 @@ class Controller():
 
 if __name__ == '__main__':
 
-	testor = Controller()
+	testor = Stepper()
 	testor.move_stone(100,20)
 
 
